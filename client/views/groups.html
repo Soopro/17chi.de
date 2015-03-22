@@ -1,0 +1,59 @@
+<div ng-include src=" 'views/user_header.html' "></div>
+
+<div class="container">
+  <div class="row">
+    <h2 class="page-header col-md-12"><span class="glyphicon glyphicon-th-list"></span>&nbsp;团队管理</h2>
+  </div>
+
+  <div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddGroupModal">新建团队</button>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="page-header">我的团队</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>团队名</th>
+            <th>团队简介</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="group in groups">
+            <td><a href="#/group/{{ group._id }}/order">{{ group.name }}</a></td>
+            <td>{{ group.desc }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div><!-- /.container -->
+
+
+<!-- AddGroupModal -->
+<div class="modal fade" id="AddGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">新建团队</h4>
+      </div>
+      <div class="modal-body col-md-10 col-md-offset-1">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" minlength="1" maxlength="24" placeholder="团队名称" ng-model="name">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" maxlength="140" placeholder="团队简介" ng-model="desc"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                ng-click="add_group()">确认添加</button>
+      </div>
+    </div>
+  </div>
+</div>

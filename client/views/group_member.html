@@ -1,0 +1,86 @@
+<div ng-include src=" 'views/user_header.html' "></div>
+
+<div class="container">
+  <div class="row starter-template">
+    <div class="col-md-8 col-md-offset-2">
+      <!--navbar-->
+      <div ng-include=" 'views/group_navbar.html' "></div>
+      <h3>团队成员:</h3>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>成员昵称</th>
+          <th>成员个性签名</th>
+          <th>成员Email</th>
+          <th>删除成员</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="member in members">
+          <td>{{ member.nickname }}</td>
+          <td>{{ member.desc }}</td>
+          <td>{{ member.email }}</td>
+          <td>
+            <button type="button" class="btn btn-default" data-toggle="modal"
+                    data-target="#myModalDelete" ng-click="markCurrentMember(member)">
+              <span class="glyphicon glyphicon-remove"></span>删除成员
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div ng-show="isOwner">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="add_member">添加成员</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 增加成员Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">增加成员</h4>
+      </div>
+      <div class="modal-body col-md-10 col-md-offset-1">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <input type="email" class="form-control" minlength="1" maxlength="24" placeholder="请输入对方的 注册邮箱" ng-model="new_member.email">
+            <br/>
+            <input type="radio" name="role" value="member" ng-model="new_member.role" checked='checked'/>
+            <p><b>普通成员</b></p>
+            <br/>
+            <input type="radio" name="role" value="admin" ng-model="new_member.role"/>
+            <p><b>管理员</b></p>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="add_group_member()">确认添加</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 删除成员 Modal -->
+<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">删除成员</h4>
+      </div>
+      <div class="modal-body">
+        确认要删除成员吗？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="delete_group_member()">确认删除</button>
+      </div>
+    </div>
+  </div>
+</div>
